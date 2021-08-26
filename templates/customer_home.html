@@ -1,0 +1,203 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'property/style.css' %}">
+    <title>Search your dream property</title>
+</head>
+
+<body>
+
+    <!--navbar-->
+    <div class="container-fluid bg-navbar sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand col-md-3" href="#">LOGO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item mx-4">
+                        <a class="nav-link text-light" href="#">Home</a>
+                    </li>
+                    <li class="nav-item mx-4">
+                        <a class="nav-link text-light" href="#">Property</a>
+                    </li>
+                    <li class="nav-item dropdown mx-4">
+                        <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Pages</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Login</a>
+                            <a class="dropdown-item" href="#">About</a>
+                            <a class="dropdown-item" href="#">Our partners</a>
+                        </div>
+                    </li>
+                    <li class="nav-item mx-4">
+                        <a class="nav-link text-light" href="#">Contact us</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search property" aria-label="Search">
+                    <a href="#"><i class="fa fa-search icon-col" aria-hidden="true"></i></a>
+                </form>
+            </div>
+        </nav>
+    </div>
+
+    <!--search section-->
+    <section class="search-section my-4 container-fluid">
+        <div class="container shadow-lg">
+            <div class="container my-5 pt-5">
+                <div class="row">
+                    <h3>SEARCH PROPERTY</h3>
+                </div>
+            </div>
+            <div class="container pb-5">
+                <div class="row bg-light-grey py-5">
+                    <form method="GET" class="container-fluid row" action="/search_property/">
+
+                        <div class="col-md-6">
+                            <div class="col-auto my-auto">
+                                <label for="bhk">Choose BHK</label>
+                                <select class="custom-select" name="bhk" id="bhk">
+                                    <option value="1">1 BHK</option>
+                                    <option value="2">2 BHK</option>
+                                    <option value="3">3 BHK</option>
+                                    <option value="4">4 BHK</option>
+                                    <option value="5">5 BHK</option>
+                                    <option value="6">6 BHK</option>
+                                </select>
+                            </div><br>
+
+                            <div class="col-auto my-auto">
+                                <label for="price">Price</label>
+                                <div class="form-row" id="price">
+                                    <div class="col">
+                                        <input type="text" name="minprice" class="form-control" placeholder="minimum">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="maxprice" class="form-control" placeholder="maximum">
+                                    </div>
+                                </div>
+                            </div><br>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="col-auto my-auto">
+                                <label for="location">Location</label>
+                                <input type="text" class="form-control" name="location">
+                            </div><br>
+
+                            <div class="col-auto my-auto">
+                                <label for="size">Size</label>
+                                <div class="form-row" id="size">
+                                    <div class="col">
+                                        <input type="text" name="minsize" class="form-control" placeholder="minimum">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" name="maxsize" class="form-control" placeholder="maximum">
+                                    </div>
+                                </div>
+                            </div><br>
+                        </div>
+
+                <div class="col-auto mt-3 mx-auto">
+                    <button type="submit" class="btn btn-info">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!--property section-->
+    <section class="property-section my-4 container-fluid">
+        <div class="container shadow-lg">
+            <div class="container my-5 pt-5">
+                <div class="row">
+                    <h3>PROPERTY</h3>
+                </div>
+                <div class="underline"></div>
+            </div>
+
+            <h3 style="text-align: center;"> {{val}} </h3>
+            {% for i in all_props %}
+            <div class="container pb-5">
+                <div class="row bg-light-grey py-5">
+                    <div class="col-md-5">
+                        <div class="prop-pic">
+                            <img src="/media/property_manage/images/{{i.image}}" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="prop-text">
+                            <br>
+                            <span class="badge badge-info">For Sale</span>
+                            <h5 class="p-title">{{i.prop_id}}</h5>
+                            <h6>Starts from: <span class="text-info">₹{{i.price}}/sqft</span></h6>
+                            <h6><i class="fa fa-map-marker text-info" aria-hidden="true"></i> {{i.p_address}}</h6>
+                            <h6><i class="fa fa-map-marker text-info" aria-hidden="true"></i> {{i.owner_id}}</h6>
+                            <br>
+                            <ul class="p-features">
+                                <li class="mr-5">
+                                    <i class="fa fa-arrows text-info" style="font-size: x-large;"
+                                        aria-hidden="true"></i>
+                                    <p>{{i.size}} sqft</p>
+                                </li>
+                                <li class="mr-5">
+                                    <i class="fa fa-building text-info" style="font-size: x-large;"
+                                        aria-hidden="true"></i>
+                                    <p>floor no. {{i.floor}}</p>
+                                </li>
+                                <li class="mr-5">
+                                    <i class="fa fa-clock-o text-info" style="font-size: x-large;"
+                                        aria-hidden="true"></i>
+                                    <p>{{i.p_age}} years</p>
+                                </li>
+                                <li class="mr-5">
+                                    <i class="fa fa-bed text-info" style="font-size: x-large;"
+                                        aria-hidden="true"></i>
+                                    <p>{{i.ptype}} BHK</p>
+                                </li>
+                            </ul>
+                            <form  action="/done_buy/{{i.prop_id}}/">
+                                <button type="submit" class="btn btn-info mx-auto">BUY</button></form>
+                        </div>
+                    </div>
+                </div>
+                <hr color="cyan">
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
